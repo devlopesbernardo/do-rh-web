@@ -1,16 +1,524 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+html {
+  --color-white: #ffffff;
+  --color-red: #d31b28;
+  --color-light-gray: #f8f7fb;
+  --smaller-border-radius: 8px;
+  --larger-border-radius: 16px;
+  overflow-x: hidden;
+}
+
 html,
-body {
-  padding: 0;
+body,
+h1,
+h2,
+p,
+input,
+form,
+img,
+ul,
+li,
+div {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-a {
-  color: inherit;
+/* ===================== GENERAL STYLES ===================== */
+/* ===================== GENERAL STYLES ===================== */
+/* ===================== GENERAL STYLES ===================== */
+
+/* === TEXT FIELD === */
+/* === TEXT FIELD === */
+
+.text-fild,
+.text-area {
+  font-size: 1.2em;
+  border-radius: var(--smaller-border-radius);
+  background-color: var(--color-light-gray);
+  transition: 0.1s;
+}
+
+.text-fild {
+  border: solid 2px rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 3em;
+  padding: 1em;
+}
+
+.text-fild:focus {
+  outline: none;
+  border: solid 2px var(--color-red);
+}
+
+.text-area {
+  width: 100%;
+  border: solid 2px var(--color-red);
+  height: 30vh;
+  padding: 1em;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.text-area:focus {
+  outline: none;
+}
+
+.text-area::-webkit-resizer {
+  display: none;
+}
+
+.input-file,
+.link-field {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2em 1em;
+  border: solid 2px var(--color-red);
+  border-radius: var(--smaller-border-radius);
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 1em;
+}
+
+.input-file:hover p,
+.link-field:hover p {
+  font-weight: 700;
+}
+
+.scrollable {
+  max-height: 30vh;
+  overflow-y: scroll;
+  padding-right: 0.5em;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 0.5em;
+  border-radius: 8px;
+  background-color: var(--color-light-gray);
+}
+
+.scrollable::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: var(--color-red);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar {
+  width: 0.8em;
+  border-radius: 8px;
+  background-color: var(--color-light-gray);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-red);
+  border: solid var(--color-light-gray) 0.12em;
+  border-radius: 8px;
+}
+
+/* === BTN ACTION === */
+/* === BTN ACTION === */
+
+.btn-action {
+  width: 100%;
+  height: 3.75em;
+  padding: 1.1em 1.5em;
+
+  cursor: pointer;
+
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 1.2em;
+  font-family: inherit;
+
+  background-color: var(--color-red);
+  border-radius: var(--larger-border-radius);
+  border: none;
+
+  transition: 0.2s;
+
+  display: flex;
+}
+
+.btn-action:focus {
+  outline: none;
+  background-color: #ed213a;
+}
+
+.btn-action:hover {
+  background-color: #ed213a;
+}
+
+/* ===================== LOGIN AREA ===================== */
+/* ===================== LOGIN AREA ===================== */
+/* ===================== LOGIN AREA ===================== */
+
+.login-container {
+  display: grid;
+
+  grid-template-columns: 100vw;
+  grid-template-rows: 100vh;
+
+  justify-content: center;
+  align-content: center;
+
+  justify-items: center;
+  align-items: center;
+}
+
+.login-container section {
+  width: 33vw;
+}
+
+.login-area {
+  background: linear-gradient(180deg, #ed213a 0%, #93291e 100%);
+  text-align: center;
+}
+
+.login-area h1 {
+  display: none;
+}
+
+.login-area .logo {
+  width: 15vw;
+  margin-bottom: 2em;
+}
+
+.login-area form {
+  width: 100%;
+  margin-bottom: 2em;
+  padding: 2em;
+
+  text-align: left;
+
+  background-color: var(--color-white);
+  border-radius: var(--larger-border-radius);
+}
+
+.login-area form label {
+  display: block;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.login-container .btn-action {
+  justify-content: center;
+}
+
+.login-area .text-fild {
+  margin-bottom: 1.5em;
+}
+
+.login-area .out-text {
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+/* ===================== PAINEL – GENERAL ===================== */
+/* ===================== PAINEL – GENERAL ===================== */
+/* ===================== PAINEL – GENERAL ===================== */
+
+.container {
+  display: grid;
+  grid-template-columns: 22fr 88fr;
+  grid-template-rows: 1fr;
+}
+
+.calendar .control {
+  background-color: var(--color-red);
+  height: 100vh;
+  text-align: center;
+}
+
+.calendar .control .logo {
+  width: 16vw;
+  padding: 1em 1em;
+}
+
+.calendar .control nav ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin: 0;
+}
+
+.btn-menu {
+  padding: 1em 2em;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+  background-color: var(--color-red);
+}
+
+.btn-menu:hover,
+.btn-menu[class='btn-menu active'] {
+  background-color: var(--color-light-gray);
+}
+
+.btn-menu:hover a,
+.btn-menu[class='btn-menu active'] a {
+  color: black;
+}
+
+.btn-menu a {
   text-decoration: none;
+  color: var(--color-white);
 }
 
-* {
+.sub {
+  padding-left: 4em;
+  background-color: var(--color-light-gray);
+}
+
+.sub a {
+  color: black;
+}
+
+.sub .active {
+  color: var(--color-red);
+}
+
+.fix-bottom {
+  position: absolute;
+  bottom: 0;
+  text-align: left;
+  width: 20%;
+  color: var(--color-white);
+}
+
+.fix-bottom p {
+  padding-left: 2em;
+  font-weight: 700;
+}
+
+.fix-bottom .btn-menu:hover {
+  color: black;
+}
+
+/* === AREA === */
+/* === AREA === */
+
+.calendar .area {
+  background-color: var(--color-light-gray);
+  padding: 4em;
+}
+
+.calendar header {
+  overflow: auto;
+}
+
+.calendar header img {
+  float: left;
+  height: 2.5em;
+  margin-right: 1em;
+}
+
+.calendar header h2 {
+  font-size: 2em;
+  float: left;
+  margin-bottom: 2em;
+}
+
+.calendar .area .calendar-app {
+  display: grid;
+  width: 100%;
+  height: 80%;
+
+  background-color: var(--color-white);
+
+  border: solid var(--color-red) 2px;
+  border-radius: var(--larger-border-radius);
+}
+
+.area header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.change-state div img {
+  height: 1.5em;
+}
+
+.change-state div:last-child img {
+  text-align: center;
+  margin: 0;
+}
+
+.change-state {
+  width: 6em;
+  display: inline;
+  justify-self: right;
+}
+
+.change-state div {
+  border: solid var(--color-red) 2px;
+  padding: 0.5em;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.change-state div:first-child {
+  float: left;
+  border-radius: var(--larger-border-radius) 0 0 var(--larger-border-radius);
+  border-right: none;
+  width: 3em;
+  border-color: var(--color-white);
+}
+
+.change-state div:last-child {
+  float: left;
+  border-left: none;
+  border-radius: 0 var(--larger-border-radius) var(--larger-border-radius) 0;
+  width: 3em;
+}
+
+.change-state div:hover {
+  border-color: var(--color-red);
+  background-color: var(--color-white);
+}
+
+.change-state .active {
+  overflow: auto;
+  background-color: var(--color-white);
+}
+
+/* === PAINEL === */
+/* === PAINEL === */
+
+.disabled {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.painel,
+.black-layer {
+  align-items: center;
+  justify-self: center;
+  /* !!!!!!!!!!!! CONTROLE DE VISIBILIDADE AQUI */
+}
+
+.painel {
+  position: absolute;
+  top: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-self: center;
+  justify-content: center;
+  justify-self: center;
+}
+
+.black-layer {
+  z-index: 0;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.painel .base {
+  background-color: var(--color-white);
+  border-radius: var(--larger-border-radius);
+  box-sizing: border-box;
+}
+
+.base {
+  z-index: 1000;
+  padding: 2.5em;
+  margin: 2.5em;
+  flex: 1;
+  align-self: center;
+  justify-content: center;
+  zoom: 0.8;
+}
+
+.painel header {
+  display: flex;
+  width: 100%;
+  grid-area: header;
+  justify-content: space-between;
+}
+
+.painel header img {
+  cursor: pointer;
+  height: 2em;
+  transition: 0.1s;
+}
+
+.painel header img:hover {
+  opacity: 0.75;
+}
+
+.painel .base {
+  width: auto;
+  display: grid;
+  grid-template-columns: 4fr 3fr 3fr;
+  grid-template-areas:
+    'header header header'
+    'info atch link'
+    'comm upatch cancel';
+  gap: 2em;
+}
+
+.painel .base img {
+  height: 1.5em;
+  padding-right: 1em;
+}
+
+.calendar-app {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.calendar-app tbody {
+  width: 100%;
+}
+
+.calendar-app tr {
+  text-align: left;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.calendar-app tr:hover {
+  background-color: #e6e6e6;
+  cursor: pointer;
+}
+
+.calendar-app th {
+  border-bottom: solid var(--color-red) 2px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.calendar-app > tbody > tr > th:not(:first-child) {
+  padding-left: 0px !important;
+}
+
+.calendar-app td,
+.calendar-app th,
+.calendar-app tr {
+  border-collapse: collapse;
+  vertical-align: center;
+  text-align: center;
   box-sizing: border-box;
 }

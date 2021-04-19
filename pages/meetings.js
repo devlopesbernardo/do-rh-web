@@ -1,9 +1,40 @@
 import React from 'react';
+import axios from 'axios';
+import { view } from '@risingstack/react-easy-state';
+import planData from '../planData';
 
-export default function Meetings() {
+const Meetings = view(() => {
   const [disabled, setDisabled] = React.useState(true);
+  const [planos, setPlanos] = React.useState([]);
 
-  const removeDisable = () => {};
+  React.useEffect(() => {
+    const queryPlans = async () => {
+      try {
+        const plans = await axios({
+          url: 'https://back.appdorh.com/plan/listar-pendentes',
+          method: 'GET',
+        });
+        let resultado = plans.data;
+        setPlanos(resultado.rows);
+        console.log(planos);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    queryPlans();
+  }, []);
+
+  const openModalData = (plano) => {
+    planData.selectedPlan = {};
+    planData.selectedPlan = plano;
+    console.log(planData.selectedPlan);
+    setDisabled(!disabled);
+  };
+
+  const disableModal = () => {
+    planData.selectedPlan = {};
+    setDisabled(!disabled);
+  };
 
   return (
     <div>
@@ -74,45 +105,49 @@ export default function Meetings() {
                 <th>Data de solicitação</th>
                 <th>Status</th>
               </tr>
-              <tr onClick={() => setDisabled(!disabled)}>
-                <td>#4513</td>
-                <td>Rogério Andrade</td>
-                <td>13:58 02/03/2021</td>
-                <td>Aguardando revisão</td>
-              </tr>
-              <tr>
-                <td>#4513</td>
-                <td>Rogério Andrade</td>
-                <td>13:58 02/03/2021</td>
-                <td>Aguardando revisão</td>
-              </tr>
+              {planos.map((p) => {
+                return (
+                  <tr onClick={() => openModalData(p)}>
+                    <td>#{p.idd}</td>
+                    <td>{p.full_name}</td>
+                    <td>{p.created_at}</td>
+                    <td>{p.plan_status}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </section>
       </span>
       <span
         className={`black-layer ${disabled ? 'disabled' : ''}`}
-        onClick={() => setDisabled(!disabled)}
+        onClick={() => disableModal()}
       />
       <div className={`painel ${disabled ? 'disabled' : ''}`}>
         <section className="base">
           <header>
-            <h2 className="name">João Pedro</h2>
+            <h2 className="name">{planData.selectedPlan.full_name}</h2>
             <p>
-              Identificador: #0298
+              Identificador: #{planData.selectedPlan.idd}
               <br />
-              12:24 01/03/2021
+              {planData.selectedPlan.created_at}
             </p>
-            <h3>Serviço solicitado: Coach</h3>
+            <h3>Serviço solicitado: {planData.selectedPlan.plan_name}</h3>
             <img
               src="/assets/img/icon-closer.png"
               alt="Ícone de fechar"
-              onClick={() => setDisabled(!disabled)}
+              onClick={() => disableModal()}
             />
           </header>
           <section className="cliente-informations">
             <h3>Informações do cliente</h3>
-            <textarea name id className="text-area" defaultValue={''} />
+            <textarea
+              name
+              id
+              className="text-area"
+              disabled
+              defaultValue={planData.selectedPlan.user_comments}
+            />
           </section>
           <section className="client-attach">
             <h3>Informações do cliente</h3>
@@ -122,7 +157,17 @@ export default function Meetings() {
                   src="/assets/img/icon-document.png"
                   alt="Ícone de documento"
                 />
-                <p>J Pedro.docx</p>
+                <p
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = `${planData.selectedPlan.user_url}`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                >
+                  J Pedro.docx
+                </p>
               </div>
             </div>
           </section>
@@ -179,4 +224,5 @@ export default function Meetings() {
       </div>
     </div>
   );
-}
+});
+export default Meetings;

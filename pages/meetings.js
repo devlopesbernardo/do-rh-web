@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { view } from '@risingstack/react-easy-state';
 import planData from '../planData';
+import Link from 'next/link';
 
 const Meetings = view(() => {
   const [disabled, setDisabled] = React.useState(true);
@@ -53,10 +54,14 @@ const Meetings = view(() => {
           <nav>
             <ul>
               <li className="btn-menu">
-                <a href="./calendar.html">Agenda</a>
+                <Link href="/calendar">
+                  <a>Agenda</a>
+                </Link>
               </li>
               <li className="btn-menu active">
-                <a href="./meetings.html">Reuniões</a>
+                <Link href="/meetings">
+                  <a>Reuniões</a>
+                </Link>
               </li>
               <li className="btn-menu sub">
                 <a href="./meetings.html" className="active">

@@ -156,7 +156,7 @@ const Meetings = view(() => {
           </section>
           <section className="client-attach">
             <h3>Informações do cliente</h3>
-            <div className="scrollable">
+            <div className="--scrollable">
               <div className="input-file">
                 <img
                   src="/assets/img/icon-document.png"
@@ -171,7 +171,8 @@ const Meetings = view(() => {
                     document.body.removeChild(link);
                   }}
                 >
-                  J Pedro.docx
+                  {planData.selectedPlan.file_name &&
+                    planData.selectedPlan.file_name.split('.pdf', 1) + '.pdf'}
                 </p>
               </div>
             </div>
@@ -199,7 +200,7 @@ const Meetings = view(() => {
           </section>
           <section className="consultant-attach">
             <h3>Anexos do consultor</h3>
-            <div className="scrollable">
+            <div className="--scrollable">
               <div className="input-file">
                 <img
                   src="/assets/img/icon-document.png"
@@ -214,7 +215,7 @@ const Meetings = view(() => {
             </div>
             <div className="btn-action">
               <img src="/assets/img/icon-checked.png" alt="Ícone de upload" />
-              <p>Cancelar encontro</p>
+              <p>Enviar</p>
             </div>
           </section>
           <section className="cancel">

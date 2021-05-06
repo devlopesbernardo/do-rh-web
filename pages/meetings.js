@@ -185,7 +185,7 @@ const Meetings = view(() => {
           </section>
           <section className="client-attach">
             <h3>Informações do cliente</h3>
-            <div className="scrollable">
+            <div className="--scrollable">
               <div className="input-file">
                 <img
                   src="/assets/img/icon-document.png"
@@ -200,11 +200,16 @@ const Meetings = view(() => {
                     document.body.removeChild(link);
                   }}
                 >
+<<<<<<< HEAD
                   {planData.selectedPlan.user_url &&
                     planData.selectedPlan.user_url
                       .split('https://rh.codandosonhos.com:9000/my-bucket/')
                       .join('-')
                       .split('-')}
+=======
+                  {planData.selectedPlan.file_name &&
+                    planData.selectedPlan.file_name.split('.pdf', 1) + '.pdf'}
+>>>>>>> 4f8f1ce1cd9cc9fa7b60274ae26bd81ca553d343
                 </p>
               </div>
             </div>
@@ -238,7 +243,7 @@ const Meetings = view(() => {
           </section>
           <section className="consultant-attach">
             <h3>Anexos do consultor</h3>
-            <div className="scrollable">
+            <div className="--scrollable">
               <div className="input-file">
                 <img
                   src="/assets/img/icon-document.png"
@@ -260,7 +265,11 @@ const Meetings = view(() => {
               onClick={() => sendFile(planData.selectedPlan.idd)}
             >
               <img src="/assets/img/icon-checked.png" alt="Ícone de upload" />
+<<<<<<< HEAD
               <p>Enviar dados!</p>
+=======
+              <p>Enviar</p>
+>>>>>>> 4f8f1ce1cd9cc9fa7b60274ae26bd81ca553d343
             </div>
           </section>
           <section className="cancel">

@@ -7,6 +7,15 @@ import Link from 'next/link';
 const Meetings = view(() => {
   const [disabled, setDisabled] = React.useState(true);
   const [planos, setPlanos] = React.useState([]);
+  const [comments, setComments] = React.useState('');
+  const [selectedFile, setSelectedFile] = React.useState();
+  const [isSelectedFile, setIsSelected] = React.useState(false);
+
+  console.log(comments);
+  const uploadHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setIsSelected(true);
+  };
 
   React.useEffect(() => {
     const queryPlans = async () => {
@@ -36,7 +45,27 @@ const Meetings = view(() => {
     planData.selectedPlan = {};
     setDisabled(!disabled);
   };
-
+  const sendFile = async ({ id }) => {
+    let formData = new FormData();
+    if (isSelectedFile) {
+      formData.append('file', {
+        name: selectedFile.name,
+        size: selectedFile.size,
+        uri: selectedFile.uri,
+        type: 'file/pdf',
+      });
+    }
+    formData.append('plan_id', id);
+    formData.append('comment', comments);
+    await axios({
+      method: 'POST',
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+      url: 'https://back.appdorh.com/admin/responder',
+      body: formData,
+    });
+  };
   return (
     <div>
       <meta charSet="UTF-8" />
@@ -171,7 +200,11 @@ const Meetings = view(() => {
                     document.body.removeChild(link);
                   }}
                 >
-                  J Pedro.docx
+                  {planData.selectedPlan.user_url &&
+                    planData.selectedPlan.user_url
+                      .split('https://rh.codandosonhos.com:9000/my-bucket/')
+                      .join('-')
+                      .split('-')}
                 </p>
               </div>
             </div>
@@ -195,7 +228,13 @@ const Meetings = view(() => {
           </section>
           <section className="comments">
             <h3>Comentários do consultor</h3>
-            <textarea name id className="text-area" defaultValue={''} />
+            <textarea
+              name
+              id
+              className="text-area"
+              value={comments}
+              onChange={(e) => setComments(e.target.value)}
+            />
           </section>
           <section className="consultant-attach">
             <h3>Anexos do consultor</h3>
@@ -205,16 +244,23 @@ const Meetings = view(() => {
                   src="/assets/img/icon-document.png"
                   alt="Ícone de documento"
                 />
-                <p>J Pedro revisado.pdf</p>
+                <p>Faça upload de um arquivo</p>
               </div>
             </div>
             <div className="input-file">
-              <img src="/assets/img/icon-upload.png" alt="Ícone de upload" />
-              <p>Enviar arquivos</p>
+              <input
+                type="file"
+                name="file"
+                onChange={uploadHandler}
+                className="input-file"
+              />
             </div>
-            <div className="btn-action">
+            <div
+              className="btn-action"
+              onClick={() => sendFile(planData.selectedPlan.idd)}
+            >
               <img src="/assets/img/icon-checked.png" alt="Ícone de upload" />
-              <p>Cancelar encontro</p>
+              <p>Enviar dados!</p>
             </div>
           </section>
           <section className="cancel">
